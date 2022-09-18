@@ -28,8 +28,10 @@ a possible solution:
 
 Users of this feature want to reliably know when RVO kicks in and when not. When
 working in an embedded/kernel/systems programming environment, allocations on
-the stack might be tightly constrained
-^[View [this](https://github.com/Rust-for-Linux/linux/issues/879) issue for more].
+the stack might be tightly constrained [^1].
+
+
+[^1]: View [this](https://github.com/Rust-for-Linux/linux/issues/879) issue for more.
 
 
 ### [RFC][pbr-rfc]'s solution
@@ -47,7 +49,7 @@ that this will be a particularly good solution:
   *lot* of effort, so it is going to take time until every pattern is detected
   and gives a reasonable lint message.
 - lints do not enable `unsafe` code to rely on additional properties. When
-  trying to create pinned data ([Point 5.][point-5-pinned-data]) it would be
+  trying to create pinned data ([point 5][point-5-pinned-data]) it would be
   great to be able to rely on certain data to be pinned after successful creation.
 
 ### New solution
@@ -145,6 +147,8 @@ let buf_buf = Box::new(WithBuf::new([1; 1000_000_000]));
 
 ## Point 4: Fallible creation
 
+[point-4-fallible-creation]: #point-4-fallible-creation
+
 ### Motivation
 
 Systems programming must be able to handle the rarest and most obscure errors.
@@ -209,6 +213,8 @@ magic to make things work. We could also only allow this optimization for
 
 ## Point 5: Pinned data
 
+[point-5-pinned-data]: #point-5-pinned-data
+
 ### Motivation
 
 In the linux kernel the synchronization primitives (e.g. `mutex`) need to be
@@ -243,6 +249,8 @@ the compiler check would need to be made available.
 
 ## Point 6: Self referential data
 
+[point-6-self-referential-data]: #point-6-self-referential-data
+
 ### Motivation
 
 As already mentioned in the last section, the kernel has self referential types
@@ -256,15 +264,17 @@ elsewhere).
 
 In a function without a receiver parameter and that is marked `#[pin_in_place]`
 users are able to use `self`. It will have `*mut $ret` as the type where `$ret`
-is the return type of the function. This can be combined with [general field projection]
-^[I believe that such a feature will be much easier to implement than this, so we
-could rely on it, and if not users will just have to use `unsafe` for the
-meantime] to easily point to fields from `self`.
+is the return type of the function. This can be combined with [general field projection](https://internals.rust-lang.org/t/pre-rfc-field-projection/17383)
+[^2] to easily point to fields from `self`.
 I think that at some point we could change its type to `Pin<UninitPtr<$ret>>`,
 but that does not exist yet (and nice ergonomics for a type like it also do
 not). Functions that have a receiver type are also excluded for the time being,
 but additional syntax could alleviate this (or one would write a helper function
 with an explicit `this: &Self` or similar).
+
+[^2]:
+	I believe that such a feature will be much easier to implement than this, so we
+	could rely on it, and if not users will just have to use `unsafe` in the meantime.
 
 A bigger problem would be the integration with returning an `enum` and the
 feature from [section 4][point-4-fallible-creation]. In this function:
@@ -292,8 +302,6 @@ I do not have a good idea of how to fix this, maybe
   produces the problem of choosing a layout-equivalent (iirc we do not have that
   yet) type. We could require `#[repr(C)]` or `#[repr(Int)]` on such an enum,
   because [their layout is defined](https://rust-lang.github.io/rfcs/2195-really-tagged-unions.html).
-
-[general field projection]: https://internals.rust-lang.org/t/pre-rfc-field-projection/17383
 
 
 ## Smaller problem collection
