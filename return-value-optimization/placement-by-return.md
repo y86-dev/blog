@@ -2,7 +2,7 @@
 
 This is a collection of thoughts/ideas on the [`placement-by-return` RFC][pbr-rfc].
 
-[pbr-rfc]: (https://github.com/rust-lang/rfcs/pull/2884)
+[pbr-rfc]: https://github.com/rust-lang/rfcs/pull/2884
 
 ## Applications
 
@@ -22,7 +22,7 @@ Some of these points are already implemented (1.) and some are addressed in the
 Now I will go over each point and present motivation for that feature along with
 a possible solution:
 
-## Point 2: Lack of explicitly
+## Point 2: Lack of explicity
 
 ### Motivation
 
