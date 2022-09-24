@@ -8,7 +8,7 @@ issue from two perspectives:
 
 In order to aid the second perspective, I will try to cater specifically to C-only kernel
 developers. While this document is written with C developers in mind, it does not explain the basic
-concepts of Rust. So if you are not at all familiar with Rust, I would recomend reading at least
+concepts of Rust. So if you are not at all familiar with Rust, I would recommend reading at least
 chapters 3 and 4 of the [Rust book].
 
 I want to remove `unsafe` from the `Mutex<T>` initializing API [in the Linux kernel][kernel-mutex].
@@ -129,7 +129,7 @@ iterating list...
 0x74756f2e612f2e
 Segmentation fault (core dumped)
 ```
-Most C developers will immediatly see the problem with this snippet. The `add_element` function
+Most C developers will immediately see the problem with this snippet. The `add_element` function
 allocates a `list_head` on the stack and then inserts it into the list. The compiler then moves
 the element from the stack frame of `add_element` into the stack frame of `main`. But the
 pointers in `head` have not been updated. It still points into the former stack frame of
@@ -234,21 +234,21 @@ function to create and initialize a mutex, so it will also become more ergonomic
   should only have to apply minimal changes to the call/definition sites)
 
 The two perspectives (Rust design and kernel design) have different priorities. Rust design would
-order the requrirenments like this:
+order the requirements like this:
 
 1. Pinning guarantees
 2. Safety
 3. Ecosystem migration ergonomics, Performance, Ergonomics
 4. Fallible initialization
 
-Kernel design has different priorites:
+Kernel design has different priorities:
 
 1. Pinning guarantees
 2. Fallible initialization
 3. Performance
 4. Ecosystem migration ergonomics, Ergonomics, Safety
 
-In an ideal world we would be able to have a solution that fulfills every requirenment. That still
+In an ideal world we would be able to have a solution that fulfills every requirement. That still
 *might* be possible, but also difficult to find. The total order I am going to use to rate the
 solutions is going to be:
 
@@ -419,7 +419,7 @@ pinning guarantees. It would need to be *somehow* extended to account for that. 
 solution and I view the alternatives as more promising, so I think we can rule this approach out as
 impractical.
 
-Because of these limiations and the lack of specification of this approach, I will not try to
+Because of these limitations and the lack of specification of this approach, I will not try to
 recreate the example.
 
 ## `placement by return`
@@ -603,7 +603,7 @@ lang addition (keyword/attribute/magic type) parameters and return types could b
 initializer for the given value. There are still some more details that need to be nailed down,
 (going to write a pre-rfc soon) but in principal I think this could work.
 
-With the marco I have written this can already be tried with a bit more ergonomic overhead (I plan
+With the macro I have written this can already be tried with a bit more ergonomic overhead (I plan
 to release it as a crate, but I am waiting for a little bit more feedback).
 
 If you have feedback/questions feel free to post them in the [internals thread].
@@ -625,7 +625,7 @@ If you have feedback/questions feel free to post them in the [internals thread].
 
 [^5]: Again, some part have been omitted. For the exact details review [the code here](https://github.com/Rust-for-Linux/linux/blob/459035ab65c0ebb8d7054b24b6c00de907819eb2/rust/kernel/sync/mutex.rs).
 
-[^6]: The `syn` crate has about 55k+ loc. The rust biniding for the Linux kernel has about 22k+ loc.
+[^6]: The `syn` crate has about 55k+ loc. The rust binding for the Linux kernel has about 22k+ loc.
 
 
 
