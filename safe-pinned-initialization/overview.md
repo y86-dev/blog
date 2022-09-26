@@ -1,4 +1,4 @@
-# Overview: Safe Pinned Initialization?
+# Overview: Safe Pinned Initialization
 
 In this blog post I will try to explain the problem of Safe Pinned Initialization. I am going to tackle the
 issue from two perspectives:
