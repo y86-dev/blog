@@ -1,5 +1,7 @@
 # Language feature: in-place construction
 
+{% raw %}
+
 In this blog post, I am going to go over how in-place constructors could be added to Rust. Doing
 this will enable better ergonomics for embedded and kernel-space programs. There are two distinct
 problems that this feature will cater to:
@@ -971,3 +973,5 @@ We of course need to mirror the same thing for `PinInit`.
 [canndrew]: https://internals.rust-lang.org/t/in-out-uninit-references-is-it-time-yet/6792
 [tema2]: https://internals.rust-lang.org/t/pre-rfc-move-references/14511
 [soni]: https://internals.rust-lang.org/t/pre-rfc-partially-initialized-types/8402
+
+{% endraw %}
