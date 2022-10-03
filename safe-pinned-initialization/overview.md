@@ -628,7 +628,7 @@ If you have feedback/questions feel free to post them in the [internals thread].
 [^6]: The `syn` crate has about 55k+ loc. The rust binding for the Linux kernel has about 22k+ loc.
 
 
-
+[back](../)
 
 [placement-by-return]: ../return-value-optimization/placement-by-return.md
 [`Pin<P>`]: https://doc.rust-lang.org/core/pin/struct.Pin.html

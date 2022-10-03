@@ -346,6 +346,6 @@ If you are interested in learning more about kernel initialization, you can part
 discussion](https://rust-lang.zulipchat.com/#narrow/stream/213817-t-lang/topic/safe.20initialization).
 Or take a look at the [repository](https://github.com/Rust-for-Linux/linux).
 
-
+[back](../)
 
 *[RVO]: return value optimization

@@ -1,3 +1,5 @@
+[rendered](https://y86-dev.github.io/blog/)
+
 # Topics
 
 - [safe pinned initialization](./safe-pinned-initialization)
